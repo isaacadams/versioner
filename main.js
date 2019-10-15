@@ -1,4 +1,6 @@
-﻿let { Versioner } = require("./Versioner");
+﻿#!/usr/bin/env node
+
+let { Versioner } = require("./Versioner");
 let { VersionModel } = require('./Models');
 let { checkIfBranchExists, createBranch, isEmpty } = require('./custom-utils');
 
