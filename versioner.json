@@ -1,0 +1,14 @@
+{
+  "project": null,
+  "release": {
+    "major": 0,
+    "minor": 0,
+    "patch": 0
+  },
+  "environments": {
+    "development": {
+      "suffix": "dev",
+      "build": 0
+    }
+  }
+}
