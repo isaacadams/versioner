@@ -1,0 +1,20 @@
+{
+  "name": "versioner",
+  "version": "0.0.1",
+  "description": "a light-weight version management system built using node.js",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Isaac Adams",
+  "license": "MIT",
+  "homepage": "https://github.com/isaacadams/versioner/tree/master",
+  "bugs": {
+    "url": "https://github.com/isaacadams/versioner/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/isaacadams/versioner.git"
+  }
+}
