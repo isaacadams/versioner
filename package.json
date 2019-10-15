@@ -1,5 +1,5 @@
 {
-  "name": "versioner",
+  "name": "@isaacadams/versioner",
   "version": "0.0.1",
   "description": "a light-weight version management system built using node.js",
   "main": "main.js",
