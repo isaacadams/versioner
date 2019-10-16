@@ -1,11 +1,9 @@
-//import { runCommand, getCLIArgument, isNullUndefinedOrEmpty, getFullFilePath }  from './utilities';
-//import path from 'path';
 import program from 'commander';
 import colors from 'colors';
 
-let { Versioner } = require("./Versioner");
-let { VersionModel } = require('./Models');
-let { checkIfBranchExists, createBranch, isEmpty } = require('./custom-utils');
+import { Versioner } from './Versioner';
+import { VersionModel } from './Models';
+import { checkIfBranchExists, createBranch, isEmpty } from './custom-utils';
 
 let verbose = false;
 // reading & writing JSON

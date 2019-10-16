@@ -19,54 +19,19 @@ var _commander = _interopRequireDefault(require("commander"));
 
 var _colors = _interopRequireDefault(require("colors"));
 
+var _Versioner = require("./Versioner");
+
+var _Models = require("./Models");
+
+var _customUtils = require("./custom-utils");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-//import { runCommand, getCLIArgument, isNullUndefinedOrEmpty, getFullFilePath }  from './utilities';
-//import path from 'path';
-var cli = function cli() {
-  /* program
-      .command('init <project>', 'initialize versioner for your project')
-      .action(newProject)
-      .command('inc', 'increment your local version')
-      .action(increment)
-      .command('releases', 'create release branches based on the current version')
-      .action(createReleaseBranches)
-      .parse(process.argv); */
-
-  /* switch (arg) {
-      case 'init':   
-          newProject();
-          break;
-        case 'inc':
-          increment();
-          break;
-        case 'releases':
-          createReleaseBranches();
-          break;
-        default:
-          console.log('The following are your options:\n\t init \n\t inc \n\t releases');
-          break;
-  } */
-};
-
-module.exports.cli = cli;
-
-var _require = require("./Versioner"),
-    Versioner = _require.Versioner;
-
-var _require2 = require('./Models'),
-    VersionModel = _require2.VersionModel;
-
-var _require3 = require('./custom-utils'),
-    checkIfBranchExists = _require3.checkIfBranchExists,
-    createBranch = _require3.createBranch,
-    isEmpty = _require3.isEmpty;
 
 var verbose = false; // reading & writing JSON
 // https://stackabuse.com/reading-and-writing-json-files-with-node-js/
 
 function increment() {
-  var versioner = new Versioner("versioner.json", 'development');
+  var versioner = new _Versioner.Versioner("versioner.json", 'development');
   versioner.env.increment();
   versioner.update();
 
@@ -78,11 +43,6 @@ function increment() {
 }
 
 function newProject(project) {
-  /*     program
-          .option('-p, --project <p>', 'Name of your project')
-          .parse(process.argv);        
-   */
-  //let { project } = program;    
   if (!project) {
     _commander["default"].help(function (help) {
       return _colors["default"].red('\nmissing required arguments!\n\n') + help;
@@ -91,28 +51,28 @@ function newProject(project) {
     return;
   }
 
-  Versioner.init(project);
+  _Versioner.Versioner.init(project);
 }
 
 function createReleaseBranches() {
-  var _ref = new Versioner("versioner.json", 'development'),
+  var _ref = new _Versioner.Versioner("versioner.json", 'development'),
       release = _ref.release,
       data = _ref.data;
 
   var project = data.project;
-  var patch = new VersionModel(release);
+  var patch = new _Models.VersionModel(release);
   patch.patch++;
-  var minor = new VersionModel(release);
+  var minor = new _Models.VersionModel(release);
   minor.minor++;
-  var major = new VersionModel(release);
+  var major = new _Models.VersionModel(release);
   major.major++;
   var releases = [patch.ToString(), minor.ToString(), major.ToString()];
   releases.forEach(function (v, i, e) {
-    var releaseBranch = isEmpty(project) ? "release/".concat(v) : "release/".concat(project, "/").concat(v);
-    checkIfBranchExists(releaseBranch, function () {
+    var releaseBranch = (0, _customUtils.isEmpty)(project) ? "release/".concat(v) : "release/".concat(project, "/").concat(v);
+    (0, _customUtils.checkIfBranchExists)(releaseBranch, function () {
       return console.log("".concat(releaseBranch, " already exists"));
     }, function () {
-      createBranch(releaseBranch, function () {
+      (0, _customUtils.createBranch)(releaseBranch, function () {
         return console.log("".concat(releaseBranch, " was created"));
       });
     });

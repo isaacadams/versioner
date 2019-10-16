@@ -8,6 +8,13 @@
 
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.VersionerModel = exports.VersionModel = exports.JsonModel = void 0;
+
+var _customUtils = require("./custom-utils");
+
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -26,17 +33,16 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var _require = require("./custom-utils"),
-    isObjectEmpty = _require.isObjectEmpty;
-
 var JsonModel = function JsonModel(data, error) {
   _classCallCheck(this, JsonModel);
 
-  var empty = isObjectEmpty(data);
+  var empty = (0, _customUtils.isObjectEmpty)(data);
   if (!empty) return;
   console.log(error);
   process.exit(100);
 };
+
+exports.JsonModel = JsonModel;
 
 var VersionModel =
 /*#__PURE__*/
@@ -65,6 +71,8 @@ function (_JsonModel) {
   return VersionModel;
 }(JsonModel);
 
+exports.VersionModel = VersionModel;
+
 var VersionerModel =
 /*#__PURE__*/
 function (_JsonModel2) {
@@ -85,7 +93,4 @@ function (_JsonModel2) {
   return VersionerModel;
 }(JsonModel);
 
-module.exports = {
-  VersionerModel: VersionerModel,
-  VersionModel: VersionModel
-};
+exports.VersionerModel = VersionerModel;

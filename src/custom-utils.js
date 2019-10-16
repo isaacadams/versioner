@@ -1,7 +1,6 @@
-﻿let cp = require('child_process');
-let { spawn } = cp;
+﻿import { spawn } from 'child_process';
 
-function checkIfBranchExists(name, ifFoundCallback, notFoundCallback) {
+export function checkIfBranchExists(name, ifFoundCallback, notFoundCallback) {
     execute(
         'git',
         ['branch', '--list', name],
@@ -17,7 +16,7 @@ function checkIfBranchExists(name, ifFoundCallback, notFoundCallback) {
     );
 }
 
-function createBranch(name, success) {
+export function createBranch(name, success) {
     execute(
         'git',
         ['branch', name],
@@ -26,7 +25,7 @@ function createBranch(name, success) {
     );
 }
 
-function execute(executable, opts, success, err) {
+export function execute(executable, opts, success, err) {
     let thereWasAnError = false;
     let commandData;
     let command = spawn(executable, opts);
@@ -53,11 +52,11 @@ function execute(executable, opts, success, err) {
     });
 }
 
-function isObjectEmpty(obj) {
+export function isObjectEmpty(obj) {
     return typeof obj === "undefined" || obj === null || Object.keys(obj).length === 0;
 }
 
-function isEmpty(data) {
+export function isEmpty(data) {
     if (data === null)
         return true;
 
@@ -76,17 +75,8 @@ function isEmpty(data) {
     }
 }
 
-function printOutSystemEnvVars() {
+export function printOutSystemEnvVars() {
     Object.keys(process.env).forEach(k => {
         console.log(`${k}: ${process.env[k]}`);
     });
 }
-
-module.exports = {
-    isObjectEmpty: isObjectEmpty,
-    isEmpty: isEmpty,
-    printOutSystemEnvVars: printOutSystemEnvVars,
-    execute: execute,
-    checkIfBranchExists: checkIfBranchExists,
-    createBranch: createBranch
-};

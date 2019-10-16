@@ -1,6 +1,6 @@
-﻿let { isObjectEmpty } = require("./custom-utils");
+﻿import { isObjectEmpty } from './custom-utils';
 
-class JsonModel {
+export class JsonModel {
     constructor(data, error) {
         let empty = isObjectEmpty(data);
         
@@ -12,7 +12,7 @@ class JsonModel {
     }
 }
 
-class VersionModel extends JsonModel {
+export class VersionModel extends JsonModel {
     constructor(data, error) {
         super(data, error);
 
@@ -26,7 +26,7 @@ class VersionModel extends JsonModel {
     }
 }
 
-class VersionerModel extends JsonModel {
+export class VersionerModel extends JsonModel {
     constructor(data, error) {
         super(data, error);
 
@@ -34,11 +34,4 @@ class VersionerModel extends JsonModel {
         this.release = data.release;
         this.environments = data.environments;
     }
-
-
 }
-
-module.exports = {
-    VersionerModel: VersionerModel,
-    VersionModel: VersionModel
-};

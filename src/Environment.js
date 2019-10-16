@@ -1,4 +1,4 @@
-﻿class Environment {
+﻿export class Environment {
     constructor(name, data) {
         this.name = name;
         this.data = data;
@@ -7,7 +7,3 @@
         this.data.build++;
     }
 }
-
-module.exports = {
-    Environment: Environment
-};

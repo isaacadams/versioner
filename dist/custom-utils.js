@@ -8,11 +8,19 @@
 
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.checkIfBranchExists = checkIfBranchExists;
+exports.createBranch = createBranch;
+exports.execute = execute;
+exports.isObjectEmpty = isObjectEmpty;
+exports.isEmpty = isEmpty;
+exports.printOutSystemEnvVars = printOutSystemEnvVars;
+
+var _child_process = require("child_process");
+
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-var cp = require('child_process');
-
-var spawn = cp.spawn;
 
 function checkIfBranchExists(name, ifFoundCallback, notFoundCallback) {
   execute('git', ['branch', '--list', name], function (d) {
@@ -36,7 +44,7 @@ function createBranch(name, success) {
 function execute(executable, opts, success, err) {
   var thereWasAnError = false;
   var commandData;
-  var command = spawn(executable, opts);
+  var command = (0, _child_process.spawn)(executable, opts);
   command.stdout.on('data', function (data) {
     commandData = data;
   });
@@ -83,12 +91,3 @@ function printOutSystemEnvVars() {
     console.log("".concat(k, ": ").concat(process.env[k]));
   });
 }
-
-module.exports = {
-  isObjectEmpty: isObjectEmpty,
-  isEmpty: isEmpty,
-  printOutSystemEnvVars: printOutSystemEnvVars,
-  execute: execute,
-  checkIfBranchExists: checkIfBranchExists,
-  createBranch: createBranch
-};

@@ -1,9 +1,9 @@
-﻿let fs = require('fs');
-let { Environment } = require("./Environment");
-let { isObjectEmpty } = require("./custom-utils");
-let { VersionerModel, VersionModel } = require("./Models");
+﻿import fs from 'fs';
+import { Environment } from './Environment';
+import { VersionerModel, VersionModel } from './Models';
+import { isObjectEmpty } from './custom-utils';
 
-class Versioner {
+export class Versioner {
     static init(name) {
         let initVersioner = {
             project: name,
@@ -59,7 +59,3 @@ function loadEnvironment(environments, name) {
     let e = environments[name];
     return new Environment(name, e);
 }
-
-module.exports = {
-    Versioner: Versioner
-};
