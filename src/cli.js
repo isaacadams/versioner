@@ -30,6 +30,11 @@ export function newProject(project) {
     Versioner.init(project);    
 }
 
+export function version() {
+    let v = new Versioner("versioner.json", 'development');
+    console.log(v.release.ToString());
+}
+
 export function createReleaseBranches() {
     let { release, data } = new Versioner("versioner.json", 'development');
     let { project } = data;

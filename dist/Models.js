@@ -36,7 +36,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var JsonModel = function JsonModel(data, error) {
   _classCallCheck(this, JsonModel);
 
-  var empty = (0, _customUtils.isObjectEmpty)(data);
+  var empty = (0, _customUtils.isEmpty)(data);
   if (!empty) return;
   console.log(error);
   process.exit(100);

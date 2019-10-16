@@ -13,6 +13,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.increment = increment;
 exports.newProject = newProject;
+exports.version = version;
 exports.createReleaseBranches = createReleaseBranches;
 
 var _commander = _interopRequireDefault(require("commander"));
@@ -52,6 +53,11 @@ function newProject(project) {
   }
 
   _Versioner.Versioner.init(project);
+}
+
+function version() {
+  var v = new _Versioner.Versioner("versioner.json", 'development');
+  console.log(v.release.ToString());
 }
 
 function createReleaseBranches() {

@@ -14,7 +14,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.checkIfBranchExists = checkIfBranchExists;
 exports.createBranch = createBranch;
 exports.execute = execute;
-exports.isObjectEmpty = isObjectEmpty;
 exports.isEmpty = isEmpty;
 exports.printOutSystemEnvVars = printOutSystemEnvVars;
 
@@ -62,10 +61,6 @@ function execute(executable, opts, success, err) {
 
     success(commandData);
   });
-}
-
-function isObjectEmpty(obj) {
-  return typeof obj === "undefined" || obj === null || Object.keys(obj).length === 0;
 }
 
 function isEmpty(data) {
