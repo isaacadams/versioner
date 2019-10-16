@@ -1,4 +1,9 @@
 #!/usr/bin/env node
 
-let command = process.argv[2];
-require('../dist/cli').cli(command);
+let program = require('commander');
+
+program
+    .command('init <project>', 'initialize versioner for your project')
+    .command('inc', 'increment your local version')
+    .command('releases', 'create release branches based on the current version')
+    .parse(process.argv);

@@ -8,6 +8,13 @@
 
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.increment = increment;
+exports.newProject = newProject;
+exports.createReleaseBranches = createReleaseBranches;
+
 var _commander = _interopRequireDefault(require("commander"));
 
 var _colors = _interopRequireDefault(require("colors"));
@@ -16,24 +23,30 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 //import { runCommand, getCLIArgument, isNullUndefinedOrEmpty, getFullFilePath }  from './utilities';
 //import path from 'path';
-var cli = function cli(arg) {
-  switch (arg) {
-    case 'init':
-      newProject();
-      break;
+var cli = function cli() {
+  /* program
+      .command('init <project>', 'initialize versioner for your project')
+      .action(newProject)
+      .command('inc', 'increment your local version')
+      .action(increment)
+      .command('releases', 'create release branches based on the current version')
+      .action(createReleaseBranches)
+      .parse(process.argv); */
 
-    case 'inc':
-      increment();
-      break;
-
-    case 'releases':
-      createReleaseBranches();
-      break;
-
-    default:
-      console.log('The following are your options:\n\t init \n\t inc \n\t releases');
-      break;
-  }
+  /* switch (arg) {
+      case 'init':   
+          newProject();
+          break;
+        case 'inc':
+          increment();
+          break;
+        case 'releases':
+          createReleaseBranches();
+          break;
+        default:
+          console.log('The following are your options:\n\t init \n\t inc \n\t releases');
+          break;
+  } */
 };
 
 module.exports.cli = cli;
@@ -64,12 +77,12 @@ function increment() {
   }
 }
 
-function newProject() {
-  _commander["default"].option('-p, --project <p>', 'Name of your project').parse(process.argv);
-
-  var project = _commander["default"].project;
-  console.log(project);
-
+function newProject(project) {
+  /*     program
+          .option('-p, --project <p>', 'Name of your project')
+          .parse(process.argv);        
+   */
+  //let { project } = program;    
   if (!project) {
     _commander["default"].help(function (help) {
       return _colors["default"].red('\nmissing required arguments!\n\n') + help;
@@ -78,7 +91,6 @@ function newProject() {
     return;
   }
 
-  console.log(project);
   Versioner.init(project);
 }
 
@@ -106,40 +118,3 @@ function createReleaseBranches() {
     });
   });
 }
-/* function gitaddremote() {
-        
-    program
-    .option('-n, --nickname <n>', 'Give the nickname for the remote repo')
-    .option('-u, --url <u>', 'Give the url that points to the remote repo')
-    .parse(process.argv); 
-        
-    let nickname = program.nickname;
-    let url = program.url;
-
-    if (!nickname || !url) {
-        program.help((help) => colors.red('\nmissing required arguments!\n\n') + help);
-    }
-    
-    try {
-        let command = `
-            git checkout master &&
-            git remote add ${nickname} ${url} &&
-            git fetch ${nickname} &&
-            git pull ${nickname} master --allow-unrelated-histories &&
-            git branch -u ${nickname}/master master &&
-            git add *
-            git push
-        `;
-
-        runCommand(command, cb);
-    }
-    catch {
-        let command = `
-            git remote add ${nickname} ${url}
-            git push -u ${nickname} master
-        `;
-
-        runCommand(command, cb);
-    }
-    
-} */

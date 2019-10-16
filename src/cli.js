@@ -3,29 +3,6 @@
 import program from 'commander';
 import colors from 'colors';
 
-let cli = function (arg) {
-
-    switch (arg) {
-        case 'init':   
-            newProject();
-            break;
-
-        case 'inc':
-            increment();
-            break;
-
-        case 'releases':
-            createReleaseBranches();
-            break;
-
-        default:
-            console.log('The following are your options:\n\t init \n\t inc \n\t releases');
-            break;
-    }
-};
-
-module.exports.cli = cli;
-
 let { Versioner } = require("./Versioner");
 let { VersionModel } = require('./Models');
 let { checkIfBranchExists, createBranch, isEmpty } = require('./custom-utils');
@@ -34,7 +11,7 @@ let verbose = false;
 // reading & writing JSON
 // https://stackabuse.com/reading-and-writing-json-files-with-node-js/
 
-function increment() {
+export function increment() {
     let versioner = new Versioner("versioner.json", 'development');
     versioner.env.increment();
     versioner.update();
@@ -45,13 +22,8 @@ function increment() {
     }
 }
 
-function newProject() {
-    program
-        .option('-p, --project <p>', 'Name of your project')
-        .parse(process.argv);        
+export function newProject(project) {
 
-    let { project } = program;    
-    
     if (!project) {
         program.help((help) => colors.red('\nmissing required arguments!\n\n') + help);
         return;
@@ -60,7 +32,7 @@ function newProject() {
     Versioner.init(project);    
 }
 
-function createReleaseBranches() {
+export function createReleaseBranches() {
     let { release, data } = new Versioner("versioner.json", 'development');
     let { project } = data;
     
