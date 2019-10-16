@@ -41,7 +41,7 @@ function () {
   _createClass(EnvironmentManager, [{
     key: "increment",
     value: function increment() {
-      this.data.build++;
+      this.config.build++;
     }
   }]);
 

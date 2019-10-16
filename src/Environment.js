@@ -14,7 +14,7 @@
         this.config = new EnvironmentConfigModel(config);
     }
     increment() {
-        this.data.build++;
+        this.config.build++;
     }
 }
 

@@ -55,9 +55,37 @@ function newProject(project) {
   _Versioner.Versioner.init(project);
 }
 
-function version() {
-  var v = new _Versioner.Versioner("versioner.json", 'development');
-  console.log(v.version());
+function version(part) {
+  var versioner = new _Versioner.Versioner("versioner.json", 'development');
+  var release = versioner.release;
+  var version = new _Models.VersionModel(release);
+  var bump = {
+    build: build,
+    patch: patch,
+    minor: minor,
+    major: major
+  }; //let bumper = bump[part];
+  //console.log(bumper);
+
+  bump[part]();
+  var v = version.ToString();
+  console.log("".concat(v, "-").concat(versioner.env.config.suffix, ".").concat(versioner.env.config.build));
+
+  function build() {
+    versioner.env.increment();
+  }
+
+  function patch() {
+    version.patch++;
+  }
+
+  function minor() {
+    version.minor++;
+  }
+
+  function major() {
+    version.major++;
+  }
 }
 
 function createReleaseBranches() {

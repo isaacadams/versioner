@@ -30,9 +30,40 @@ export function newProject(project) {
     Versioner.init(project);    
 }
 
-export function version() {
-    let v = new Versioner("versioner.json", 'development');
-    console.log(v.version());
+export function version(part) {
+    let versioner = new Versioner("versioner.json", 'development');
+    let { release } = versioner;
+    let version = new VersionModel(release);
+
+    let bump = {
+        build: build,
+        patch: patch,
+        minor: minor,
+        major: major
+    };
+
+    //let bumper = bump[part];
+    //console.log(bumper);
+    bump[part]();
+
+    let v = version.ToString();
+    console.log(`${v}-${versioner.env.config.suffix}.${versioner.env.config.build}`);
+
+    function build() {
+        versioner.env.increment();
+    }
+
+    function patch() {
+        version.patch++;
+    }
+    
+    function minor() {
+        version.minor++;
+    }
+
+    function major() {
+        version.major++;
+    }
 }
 
 export function createReleaseBranches() {

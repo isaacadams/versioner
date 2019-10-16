@@ -72,6 +72,11 @@ function () {
       var serialized = JSON.stringify(this.data, null, 2);
 
       _fs["default"].writeFileSync(this.path, serialized);
+
+      if (true) {
+        console.log('updating data:');
+        console.log(serialized);
+      }
     }
   }, {
     key: "version",
