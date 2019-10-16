@@ -12,6 +12,20 @@ export class JsonModel {
     }
 }
 
+export class EnvironmentConfigModel {
+    constructor(data) {
+        this.suffix = data.suffix;
+        this.build = data.build;
+    }
+}
+
+export class EnvironmentModel {
+    constructor(data) {
+        this.current = data.current;
+        this.configurations = data.configurations;
+    }
+}
+
 export class VersionModel extends JsonModel {
     constructor(data, error) {
         super(data, error);

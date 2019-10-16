@@ -1,4 +1,6 @@
-﻿export class EnvironmentManager {
+﻿import { EnvironmentModel, EnvironmentConfigModel } from './Models';
+
+export class EnvironmentManager {
     constructor(data, envToLoad) {
         this.data = new EnvironmentModel(data);
         this.name = envToLoad;
@@ -15,19 +17,5 @@
     }
     increment() {
         this.config.build++;
-    }
-}
-
-export class EnvironmentConfigModel {
-    constructor(data) {
-        this.suffix = data.suffix;
-        this.build = data.build;
-    }
-}
-
-export class EnvironmentModel {
-    constructor(data) {
-        this.current = data.current;
-        this.configurations = data.configurations;
     }
 }
