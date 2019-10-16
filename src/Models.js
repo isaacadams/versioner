@@ -1,8 +1,8 @@
-﻿import { isObjectEmpty } from './custom-utils';
+﻿import { isEmpty } from './custom-utils';
 
 export class JsonModel {
     constructor(data, error) {
-        let empty = isObjectEmpty(data);
+        let empty = isEmpty(data);
         
         if (!empty)
             return;

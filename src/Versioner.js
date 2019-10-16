@@ -1,7 +1,6 @@
 ﻿import fs from 'fs';
 import { Environment } from './Environment';
 import { VersionerModel, VersionModel } from './Models';
-import { isObjectEmpty } from './custom-utils';
 
 export class Versioner {
     static init(name) {

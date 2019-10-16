@@ -52,10 +52,6 @@ export function execute(executable, opts, success, err) {
     });
 }
 
-export function isObjectEmpty(obj) {
-    return typeof obj === "undefined" || obj === null || Object.keys(obj).length === 0;
-}
-
 export function isEmpty(data) {
     if (data === null)
         return true;
