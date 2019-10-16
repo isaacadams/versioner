@@ -55,7 +55,7 @@ function newProject(project) {
   _Versioner.Versioner.init(project);
 }
 
-function version(part) {
+function version(part, cmdObj) {
   var versioner = new _Versioner.Versioner("versioner.json", 'development');
   var release = versioner.release;
   var version = new _Models.VersionModel(release);
@@ -69,6 +69,11 @@ function version(part) {
 
   bump[part]();
   var v = version.ToString();
+
+  if (cmdObj.update) {
+    versioner.update();
+  }
+
   console.log("".concat(v, "-").concat(versioner.env.config.suffix, ".").concat(versioner.env.config.build));
 
   function build() {

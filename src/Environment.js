@@ -1,4 +1,5 @@
 ﻿import { EnvironmentModel, EnvironmentConfigModel } from './Models';
+import { JsonModel } from '../dist/Models';
 
 export class EnvironmentManager {
     constructor(data, envToLoad) {
@@ -10,12 +11,20 @@ export class EnvironmentManager {
         if (nameDoesNotExist) {
             console.log(`${envToLoad} is not supported`);
             process.exit(100);
-        }
-        
-        let config = this.data.configurations[envToLoad];
-        this.config = new EnvironmentConfigModel(config);
+        }        
     }
     increment() {
-        this.config.build++;
+        let c = this.config;
+        c.build++;
+        this.config = c;
+    }
+
+    get config(){
+        let d = this.data.configurations[this.name];
+        return new EnvironmentConfigModel(d);
+    }
+
+    set config(value) {
+        this.data.configurations[this.name] = value;
     }
 }

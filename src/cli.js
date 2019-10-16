@@ -30,7 +30,7 @@ export function newProject(project) {
     Versioner.init(project);    
 }
 
-export function version(part) {
+export function version(part, cmdObj) {
     let versioner = new Versioner("versioner.json", 'development');
     let { release } = versioner;
     let version = new VersionModel(release);
@@ -47,6 +47,11 @@ export function version(part) {
     bump[part]();
 
     let v = version.ToString();
+
+    if(cmdObj.update){
+        versioner.update();
+    }
+
     console.log(`${v}-${versioner.env.config.suffix}.${versioner.env.config.build}`);
 
     function build() {

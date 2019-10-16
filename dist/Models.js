@@ -11,7 +11,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.VersionerModel = exports.VersionModel = exports.JsonModel = void 0;
+exports.VersionerModel = exports.VersionModel = exports.EnvironmentModel = exports.EnvironmentConfigModel = exports.JsonModel = void 0;
 
 var _customUtils = require("./custom-utils");
 
@@ -43,6 +43,24 @@ var JsonModel = function JsonModel(data, error) {
 };
 
 exports.JsonModel = JsonModel;
+
+var EnvironmentConfigModel = function EnvironmentConfigModel(data) {
+  _classCallCheck(this, EnvironmentConfigModel);
+
+  this.suffix = data.suffix;
+  this.build = data.build;
+};
+
+exports.EnvironmentConfigModel = EnvironmentConfigModel;
+
+var EnvironmentModel = function EnvironmentModel(data) {
+  _classCallCheck(this, EnvironmentModel);
+
+  this.current = data.current;
+  this.configurations = data.configurations;
+};
+
+exports.EnvironmentModel = EnvironmentModel;
 
 var VersionModel =
 /*#__PURE__*/
