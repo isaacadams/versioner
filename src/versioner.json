@@ -5,10 +5,13 @@
     "minor": 0,
     "patch": 0
   },
-  "environments": {
-    "development": {
-      "suffix": "dev",
-      "build": 0
+  "environment":{
+    "current": "development",
+    "config": {
+      "development": {
+        "suffix": "dev",
+        "build": 0
+      }
     }
   }
 }

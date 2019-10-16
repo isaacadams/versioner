@@ -11,7 +11,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Environment = void 0;
+exports.EnvironmentModel = exports.EnvironmentConfigModel = exports.EnvironmentManager = void 0;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -19,24 +19,51 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Environment =
+var EnvironmentManager =
 /*#__PURE__*/
 function () {
-  function Environment(name, data) {
-    _classCallCheck(this, Environment);
+  function EnvironmentManager(data, envToLoad) {
+    _classCallCheck(this, EnvironmentManager);
 
-    this.name = name;
-    this.data = data;
+    this.data = new EnvironmentModel(data);
+    this.name = envToLoad;
+    var nameDoesNotExist = !this.data.configurations.hasOwnProperty(envToLoad);
+
+    if (nameDoesNotExist) {
+      console.log("".concat(envToLoad, " is not supported"));
+      process.exit(100);
+    }
+
+    var config = this.data.configurations[envToLoad];
+    this.config = new EnvironmentConfigModel(config);
   }
 
-  _createClass(Environment, [{
+  _createClass(EnvironmentManager, [{
     key: "increment",
     value: function increment() {
       this.data.build++;
     }
   }]);
 
-  return Environment;
+  return EnvironmentManager;
 }();
 
-exports.Environment = Environment;
+exports.EnvironmentManager = EnvironmentManager;
+
+var EnvironmentConfigModel = function EnvironmentConfigModel(data) {
+  _classCallCheck(this, EnvironmentConfigModel);
+
+  this.suffix = data.suffix;
+  this.build = data.build;
+};
+
+exports.EnvironmentConfigModel = EnvironmentConfigModel;
+
+var EnvironmentModel = function EnvironmentModel(data) {
+  _classCallCheck(this, EnvironmentModel);
+
+  this.current = data.current;
+  this.configurations = data.configurations;
+};
+
+exports.EnvironmentModel = EnvironmentModel;

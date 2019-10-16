@@ -32,7 +32,7 @@ export function newProject(project) {
 
 export function version() {
     let v = new Versioner("versioner.json", 'development');
-    console.log(v.release.ToString());
+    console.log(v.version());
 }
 
 export function createReleaseBranches() {

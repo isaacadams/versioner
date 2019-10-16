@@ -40,10 +40,13 @@ function () {
           minor: 0,
           patch: 0
         },
-        environments: {
-          development: {
-            suffix: "dev",
-            build: 0
+        environment: {
+          current: "development",
+          configurations: {
+            development: {
+              suffix: "dev",
+              build: 0
+            }
           }
         }
       };
@@ -53,14 +56,14 @@ function () {
     }
   }]);
 
-  function Versioner(pathToJson, environment) {
+  function Versioner(pathToJson, envToLoad) {
     _classCallCheck(this, Versioner);
 
     this.path = pathToJson;
     var data = readJson(pathToJson);
     this.data = new _Models.VersionerModel(data, "file was null or empty at ".concat(pathToJson));
     this.release = new _Models.VersionModel(this.data.release, "release is not in the correct format");
-    this.env = loadEnvironment(this.data.environments, environment);
+    this.env = new _Environment.EnvironmentManager(this.data.environment, envToLoad);
   }
 
   _createClass(Versioner, [{
@@ -73,7 +76,7 @@ function () {
   }, {
     key: "version",
     value: function version() {
-      return "".concat(this.release.ToString(), "-").concat(this.env.data.suffix, ".").concat(this.env.data.build);
+      return "".concat(this.release.ToString(), "-").concat(this.env.config.suffix, ".").concat(this.env.config.build);
     }
   }]);
 
@@ -87,16 +90,4 @@ function readJson(path) {
 
   var obj = JSON.parse(contents);
   return obj;
-}
-
-function loadEnvironment(environments, name) {
-  var nameDoesNotExist = !environments.hasOwnProperty(name);
-
-  if (nameDoesNotExist) {
-    console.log("".concat(name, " is not supported"));
-    process.exit(100);
-  }
-
-  var e = environments[name];
-  return new _Environment.Environment(name, e);
 }

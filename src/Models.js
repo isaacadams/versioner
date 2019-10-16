@@ -32,6 +32,6 @@ export class VersionerModel extends JsonModel {
 
         this.project = data.project;
         this.release = data.release;
-        this.environments = data.environments;
+        this.environment = data.environment;
     }
 }

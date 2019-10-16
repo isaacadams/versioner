@@ -57,7 +57,7 @@ function newProject(project) {
 
 function version() {
   var v = new _Versioner.Versioner("versioner.json", 'development');
-  console.log(v.release.ToString());
+  console.log(v.version());
 }
 
 function createReleaseBranches() {

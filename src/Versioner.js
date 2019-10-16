@@ -1,5 +1,5 @@
 ﻿import fs from 'fs';
-import { Environment } from './Environment';
+import { EnvironmentManager, EnvironmentModel } from './Environment';
 import { VersionerModel, VersionModel } from './Models';
 
 export class Versioner {
@@ -11,10 +11,13 @@ export class Versioner {
                 minor: 0,
                 patch: 0
             },
-            environments: {
-                development: {
-                    suffix: "dev",
-                    build: 0
+            environment: {
+                current: "development",
+                configurations: {
+                    development: {
+                        suffix: "dev",
+                        build: 0
+                    }
                 }
             }
         };
@@ -22,13 +25,13 @@ export class Versioner {
         fs.writeFileSync("versioner.json", serialized);
     }
 
-    constructor(pathToJson, environment) {
+    constructor(pathToJson, envToLoad) {
         this.path = pathToJson;
         
         let data = readJson(pathToJson);
         this.data = new VersionerModel(data, `file was null or empty at ${pathToJson}`);
         this.release = new VersionModel(this.data.release, "release is not in the correct format");
-        this.env = loadEnvironment(this.data.environments, environment);
+        this.env = new EnvironmentManager(this.data.environment, envToLoad);
     }
     
     update() {
@@ -37,7 +40,7 @@ export class Versioner {
     }
     
     version() {
-        return `${this.release.ToString()}-${this.env.data.suffix}.${this.env.data.build}`;
+        return `${this.release.ToString()}-${this.env.config.suffix}.${this.env.config.build}`;
     }
 }
 
@@ -45,16 +48,4 @@ function readJson(path) {
     let contents = fs.readFileSync(path);
     let obj = JSON.parse(contents);
     return obj;
-}
-
-function loadEnvironment(environments, name) {
-    let nameDoesNotExist = !environments.hasOwnProperty(name);
-
-    if (nameDoesNotExist) {
-        console.log(`${name} is not supported`);
-        process.exit(100);
-    }
-
-    let e = environments[name];
-    return new Environment(name, e);
 }

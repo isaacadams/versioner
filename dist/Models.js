@@ -86,7 +86,7 @@ function (_JsonModel2) {
     _this2 = _possibleConstructorReturn(this, _getPrototypeOf(VersionerModel).call(this, data, error));
     _this2.project = data.project;
     _this2.release = data.release;
-    _this2.environments = data.environments;
+    _this2.environment = data.environment;
     return _this2;
   }
 
