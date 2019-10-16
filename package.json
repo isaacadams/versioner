@@ -1,6 +1,6 @@
 {
   "name": "@isaacadams/versioner",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "a light-weight version management system built using node.js",
   "main": "bin/versioner.js",
   "bin": {
