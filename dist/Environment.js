@@ -53,7 +53,7 @@ function () {
       return new _Models.EnvironmentConfigModel(d);
     },
     set: function set(value) {
-      this.data.configurations[this.name] = value; //JSON.parse(JSON.stringify(value));
+      this.data.configurations[this.name] = value;
     }
   }]);
 

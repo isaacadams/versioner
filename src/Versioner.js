@@ -38,7 +38,7 @@ export class Versioner {
         let serialized = JSON.stringify(this.data, null, 2);
         fs.writeFileSync(this.path, serialized);
 
-        if(true) {
+        if(false) {
             console.log('updating data:');
             console.log(serialized);
         }
