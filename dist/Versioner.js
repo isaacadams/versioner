@@ -28,18 +28,37 @@ function () {
     this.path = pathToJson;
     var data = readJson(pathToJson);
     this.data = new _Models.VersionerModel(data, "file was null or empty at ".concat(pathToJson));
-    this.release = new _Models.VersionModel(this.data.release, "release is not in the correct format");
     this.env = new _Environment.EnvironmentManager(this.data.environment, envToLoad);
   }
 
   _createClass(Versioner, [{
+    key: "build",
+    value: function build() {
+      this.env.increment();
+    }
+  }, {
+    key: "patch",
+    value: function patch() {
+      this.data.release.patch++;
+    }
+  }, {
+    key: "minor",
+    value: function minor() {
+      this.data.release.minor++;
+    }
+  }, {
+    key: "major",
+    value: function major() {
+      this.data.release.major++;
+    }
+  }, {
     key: "update",
     value: function update() {
       var serialized = JSON.stringify(this.data, null, 2);
 
       _fs["default"].writeFileSync(this.path, serialized);
 
-      if (false) {
+      if (true) {
         console.log('updating data:');
         console.log(serialized);
       }
@@ -48,6 +67,11 @@ function () {
     key: "version",
     value: function version() {
       return "".concat(this.release.ToString(), "-").concat(this.env.config.suffix, ".").concat(this.env.config.build);
+    }
+  }, {
+    key: "release",
+    get: function get() {
+      return new _Models.VersionModel(this.data.release, "release is not in the correct format");
     }
   }]);
 

@@ -8,15 +8,34 @@ export class Versioner {
         
         let data = readJson(pathToJson);
         this.data = new VersionerModel(data, `file was null or empty at ${pathToJson}`);
-        this.release = new VersionModel(this.data.release, "release is not in the correct format");
         this.env = new EnvironmentManager(this.data.environment, envToLoad);
+    }
+
+    get release(){
+        return new VersionModel(this.data.release, "release is not in the correct format");
+    }
+
+    build() {
+        this.env.increment();
+    }
+
+    patch() {
+        this.data.release.patch++;
+    }
+    
+    minor() {
+        this.data.release.minor++;
+    }
+
+    major() {
+        this.data.release.major++;
     }
     
     update() {
         let serialized = JSON.stringify(this.data, null, 2);
         fs.writeFileSync(this.path, serialized);
 
-        if(false) {
+        if(true) {
             console.log('updating data:');
             console.log(serialized);
         }

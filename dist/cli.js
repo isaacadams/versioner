@@ -3,13 +3,16 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.increment = increment;
-exports.version = version;
+exports.main = main;
 exports.createReleaseBranches = createReleaseBranches;
 
 var _commander = _interopRequireDefault(require("commander"));
 
 var _colors = _interopRequireDefault(require("colors"));
+
+var init = _interopRequireWildcard(require("./init/cli"));
+
+var version = _interopRequireWildcard(require("./version/cli"));
 
 var _Versioner = require("./Versioner");
 
@@ -17,60 +20,19 @@ var _Models = require("./Models");
 
 var _customUtils = require("./custom-utils");
 
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function main() {
+  init.define();
+  version.define();
+}
 
 var verbose = false; // reading & writing JSON
 // https://stackabuse.com/reading-and-writing-json-files-with-node-js/
-
-function increment() {
-  var versioner = new _Versioner.Versioner("versioner.json", 'development');
-  versioner.env.increment();
-  versioner.update();
-
-  if (verbose) {
-    console.log(versioner.data);
-    console.log(versioner.version());
-    console.log(versioner.release);
-  }
-}
-
-function version(part, cmdObj) {
-  var versioner = new _Versioner.Versioner("versioner.json", 'development');
-  var release = versioner.release;
-  var version = new _Models.VersionModel(release);
-  var bump = {
-    build: build,
-    patch: patch,
-    minor: minor,
-    major: major
-  }; //let bumper = bump[part];
-  //console.log(bumper);
-
-  bump[part]();
-  var v = version.ToString();
-
-  if (cmdObj.update) {
-    versioner.update();
-  }
-
-  console.log("".concat(v, "-").concat(versioner.env.config.suffix, ".").concat(versioner.env.config.build));
-
-  function build() {
-    versioner.env.increment();
-  }
-
-  function patch() {
-    version.patch++;
-  }
-
-  function minor() {
-    version.minor++;
-  }
-
-  function major() {
-    version.major++;
-  }
-}
 
 function createReleaseBranches() {
   var _ref = new _Versioner.Versioner("versioner.json", 'development'),

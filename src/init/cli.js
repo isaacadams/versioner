@@ -1,8 +1,18 @@
-#!/usr/bin/env node
-import { Versioner } from './../Versioner';
+import program from 'commander';
+
+export function define(){
+    program
+        .command('init <project>')
+        .description('initialize versioner for your project')
+        .action((project, options) => {
+            //console.log(command, options);
+            createVersionerJson(project, options);
+        });
+}
+
 import fs from 'fs';
 
-export function main(project) {
+function createVersionerJson(name, options) {
 
     /* if (!project) {
         program.help((help) => colors.red('\nmissing required arguments!\n\n') + help);
@@ -10,7 +20,7 @@ export function main(project) {
     } */
 
     let initVersioner = {
-        project: project,
+        project: name,
         release: {
             major: 0,
             minor: 0,
