@@ -58,7 +58,7 @@ function () {
 
       _fs["default"].writeFileSync(this.path, serialized);
 
-      if (true) {
+      if (false) {
         console.log('updating data:');
         console.log(serialized);
       }
