@@ -20,16 +20,6 @@ export function increment() {
     }
 }
 
-export function newProject(project) {
-
-    if (!project) {
-        program.help((help) => colors.red('\nmissing required arguments!\n\n') + help);
-        return;
-    }
-
-    Versioner.init(project);    
-}
-
 export function version(part, cmdObj) {
     let versioner = new Versioner("versioner.json", 'development');
     let { release } = versioner;

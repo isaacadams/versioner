@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 let program = require('commander');
-let { newProject } = require('../dist/cli');
+let { main } = require('../dist/init/cli');
 
 program
-    .action(newProject)
+    .action(main)
     .parse(process.argv);

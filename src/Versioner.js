@@ -3,28 +3,6 @@ import { EnvironmentManager, EnvironmentModel } from './Environment';
 import { VersionerModel, VersionModel } from './Models';
 
 export class Versioner {
-    static init(name) {
-        let initVersioner = {
-            project: name,
-            release: {
-                major: 0,
-                minor: 0,
-                patch: 0
-            },
-            environment: {
-                current: "development",
-                configurations: {
-                    development: {
-                        suffix: "dev",
-                        build: 0
-                    }
-                }
-            }
-        };
-        let serialized = JSON.stringify(initVersioner, null, 2);
-        fs.writeFileSync("versioner.json", serialized);
-    }
-
     constructor(pathToJson, envToLoad) {
         this.path = pathToJson;
         
