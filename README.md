@@ -1,6 +1,16 @@
 ﻿# Versioner
 a light-weight version management system built using node.js
 
+
+- init requires project name and initial version
+- on init
+  - master will be tagged with initial version
+  - release branches will be generated
+- on release
+  - master will be tagged with new version
+  - versioner will always looks to master tags for the current version
+- move 'version' command into 'get' and add --bump as option and --update as option
+
 ## problems
 - none
 
