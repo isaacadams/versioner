@@ -1,6 +1,7 @@
 ﻿# Versioner
 a light-weight version management system built using node.js
 
+>>> INSERTION POINT FOR HELP OUTPUT <<<
 
 - init requires project name and initial version
 - on init
