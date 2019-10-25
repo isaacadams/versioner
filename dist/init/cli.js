@@ -4,11 +4,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.define = define;
+exports.createVersionerJson = createVersionerJson;
 exports.createReleaseBranches = createReleaseBranches;
 
 var _commander = _interopRequireDefault(require("commander"));
 
 var _fs = _interopRequireDefault(require("fs"));
+
+var _path = _interopRequireDefault(require("path"));
 
 var _Versioner = require("./../Versioner");
 
@@ -48,8 +51,13 @@ function createVersionerJson(name, options) {
     }
   };
   var serialized = JSON.stringify(initVersioner, null, 2);
+  var fileName = "versioner.json";
 
-  _fs["default"].writeFileSync("versioner.json", serialized);
+  _fs["default"].writeFileSync(fileName, serialized);
+
+  var pathToVersionerFile = _path["default"].resolve(fileName);
+
+  return pathToVersionerFile;
 }
 
 var verbose = false; // reading & writing JSON

@@ -11,8 +11,9 @@ export function define(){
 }
 
 import fs from 'fs';
+import path from 'path';
 
-function createVersionerJson(name, options) {
+export function createVersionerJson(name, options) {
 
     /* if (!project) {
         program.help((help) => colors.red('\nmissing required arguments!\n\n') + help);
@@ -37,7 +38,11 @@ function createVersionerJson(name, options) {
         }
     };
     let serialized = JSON.stringify(initVersioner, null, 2);
-    fs.writeFileSync("versioner.json", serialized);
+    
+    let fileName = "versioner.json";
+    fs.writeFileSync(fileName, serialized);
+    let pathToVersionerFile = path.resolve(fileName);
+    return pathToVersionerFile;
 }
 
 
