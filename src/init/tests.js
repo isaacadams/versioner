@@ -1,31 +1,31 @@
 let r = require,
-    assert = r('assert'),
+    //assert = r('assert'),
     path = r('path'),
-    { execute } = r('./../../dist/custom-utils')
+    { execute } = r('./../../dist/ProcessPromise')
     __root = path.resolve(__dirname + './../../');
 
+const chai = require('chai');  
+const chaiAsPromised = require('chai-as-promised');  
+  
+const { expect, assert } = chai;  
+chai.use(chaiAsPromised);  
 
-function versioner(command, opts = [], onsuccess, onfailure) {
-    execute(
+function versioner(command, opts = []) {
+    return execute(
         "node",
-        [__root + "/bin/versioner.js", command, ...opts],
-        onsuccess,
-        onfailure
+        [__root + "/bin/versioner.js", command, ...opts]
     );
 }
 
 describe("init", function () {
-    //let a = 1;
-    it('should say missing required argument "project"', function() {
-        //assert.equal([1, 2, 3].indexOf(4), -1);
-        versioner(
-            "init something", 
-            [], 
-            () => {
-                assert.equal(-1, 1);
-                //throw new Error('versioner init should not succeed without a project name passed into it')
-            },
-            (e) => assert.equal(e, "error: missing required argument 'project'")
-        );        
+    it('should say missing required argument <project>', function(done) {
+        let p = versioner("init", []);
+        p.then((o) => {
+            setTimeout(function() {
+                //console.log(o);
+                assert.propertyVal(o, 'stderr', "error: missing required argument 'project'\n");
+                done();
+            });
+        });
     });
 });
