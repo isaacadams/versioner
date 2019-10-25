@@ -7,13 +7,13 @@ export function define() {
         .option('-u --update', 'update the version')
         .option('-b --bump <part>', 'bump a part of the version [patch, minor, or major]')
         .action((options) => {
-            version(options);
+            getVersion(options);
         });
 }
 
 import { Versioner } from './../Versioner';
 
-function version(opts) {
+function getVersion(opts) {
     let versioner = new Versioner("versioner.json", 'development');
 
     if(!!opts.bump) {
@@ -32,5 +32,8 @@ function version(opts) {
     }
 
     let v = versioner.release.ToString();
-    console.log(`${v}-${versioner.env.config.suffix}.${versioner.env.config.build}`);
+    let longV = `${v}-${versioner.env.config.suffix}.${versioner.env.config.build}`;
+    console.log(longV);
+    
+    return longV;
 }
