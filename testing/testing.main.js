@@ -9,7 +9,7 @@ describe("versioner", function () {
        //console.log("running something before each test");
     });
     
-    importTest("init", './src/init/tests.js');
+    importTest("init", './../src/init/tests.js');
     //importTest("b", './b/b');
     
     after(function () {

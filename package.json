@@ -7,7 +7,7 @@
     "versioner": "bin/versioner.js"
   },
   "scripts": {
-    "test": "gulp build && mocha tests.js"
+    "test": "gulp build && mocha testing/testing.main.js"
   },
   "devDependencies": {
     "gulp": "^4.0.0",
