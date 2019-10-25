@@ -7,7 +7,7 @@
     "versioner": "bin/versioner.js"
   },
   "scripts": {
-    "test": "gulp build && npm link"
+    "test": "gulp build && mocha tests.js"
   },
   "devDependencies": {
     "gulp": "^4.0.0",
@@ -15,7 +15,9 @@
     "gulp-insert-lite": "^1.0.3",
     "merge-stream": "^1.0.1",
     "@babel/core": "^7.1.2",
-    "@babel/preset-env": "^7.1.0"
+    "@babel/preset-env": "^7.1.0",
+    "glob": "7.1.5",
+    "mocha": "6.2.2"
   },
   "dependencies": {
     "colors": "^1.3.2",
