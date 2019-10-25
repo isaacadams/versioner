@@ -7,6 +7,7 @@ exports.checkIfBranchExists = checkIfBranchExists;
 exports.createBranch = createBranch;
 exports.execute = execute;
 exports.isEmpty = isEmpty;
+exports.stringify = stringify;
 exports.printOutSystemEnvVars = printOutSystemEnvVars;
 
 var _child_process = require("child_process");
@@ -33,21 +34,26 @@ function createBranch(name, success) {
 }
 
 function execute(executable, opts, success, err) {
+  var verbose = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
   var thereWasAnError = false;
+  var errorMessage = "";
   var commandData;
   var command = (0, _child_process.spawn)(executable, opts);
   command.stdout.on('data', function (data) {
     commandData = data;
   });
   command.stderr.on('data', function (d) {
-    console.log("error running ".concat(executable, " ").concat(opts.join(' '), ":"));
-    console.log(JSON.parse(d));
+    errorMessage = d;
+    var errTemplate = "ERROR running executable:\n        $ ".concat(executable, " ").concat(opts.join(' '), "\n        --------\n        ").concat(d, "\n        --------");
+    if (verbose) console.log(errTemplate);
     thereWasAnError = true;
   });
   command.on('close', function (code) {
     if (thereWasAnError || code < 0) {
-      console.log(code);
-      err();
+      var m = errorMessage.toString('utf8'); // remove the \r and \n from error message
+
+      m = m.replace(/\r?\n|\r/g, "");
+      err(m);
       return;
     }
 
@@ -73,8 +79,46 @@ function isEmpty(data) {
   }
 }
 
+function stringify(data) {
+  if (data === null) return "";
+
+  var t = _typeof(data);
+
+  switch (t) {
+    case "object":
+      return JSON.stringify(data);
+
+    case "string":
+      return data;
+
+    case "number":
+      return "".concat(data);
+
+    case "buffer":
+      return data.toString();
+
+    default:
+    case "undefined":
+      return "";
+  }
+}
+
 function printOutSystemEnvVars() {
   Object.keys(process.env).forEach(function (k) {
     console.log("".concat(k, ": ").concat(process.env[k]));
   });
+}
+
+function findArgument(argName) {
+  var i = findFlag(argName);
+  var arg = process.argv[i + 1];
+  return arg;
+}
+
+function findFlag(argName) {
+  var i = process.argv.findIndex(function (v, i, o) {
+    return v === argName;
+  });
+  if (i < 0) return undefined;
+  return i;
 }

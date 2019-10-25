@@ -25,8 +25,9 @@ export function createBranch(name, success) {
     );
 }
 
-export function execute(executable, opts, success, err) {
+export function execute(executable, opts, success, err, verbose = false) {
     let thereWasAnError = false;
+    let errorMessage = "";
     let commandData;
     let command = spawn(executable, opts);
 
@@ -35,16 +36,27 @@ export function execute(executable, opts, success, err) {
     });
 
     command.stderr.on('data', d => {
-        console.log(`error running ${executable} ${opts.join(' ')}:`);
-        console.log(JSON.parse(d));
+        errorMessage = d;
+        let errTemplate = `ERROR running executable:
+        $ ${executable} ${opts.join(' ')}
+        --------
+        ${d}
+        --------`;
+        
+        if(verbose)
+            console.log(errTemplate);
+        
         thereWasAnError = true;
     });
 
     command.on('close', (code) => {
         
         if (thereWasAnError || code < 0) {
-            console.log(code);
-            err();
+            let m = errorMessage.toString('utf8');
+            // remove the \r and \n from error message
+            m = m.replace(/\r?\n|\r/g, "");
+
+            err(m);
             return;
         }
 
@@ -68,6 +80,31 @@ export function isEmpty(data) {
 
         case "string":
             return data.length === 0;
+    }
+}
+
+export function stringify(data) {
+    if (data === null)
+        return "";
+
+    let t = typeof data;
+
+    switch (t) {
+        case "object":
+            return JSON.stringify(data);
+
+        case "string":
+            return data;
+
+        case "number":
+            return `${data}`;
+
+        case "buffer":
+            return data.toString();
+
+        default:
+        case "undefined":
+            return "";
     }
 }
 
