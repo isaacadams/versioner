@@ -39,3 +39,47 @@ function transpile(source, output) {
     }))
     .pipe(gulp.dest(output))
 }
+
+let glob = require('glob'),
+    path = require('path');
+
+function cliGenerator(cb) {
+
+    glob('src/**/*/cli.js', function (err, files) {
+        if (err) done(err);
+        
+        let clis = files.map(exe => {
+            let dirs = path.dirname(exe).split('/');
+            let name = dirs[dirs.length - 1];
+
+            console.log(`creating cli for ${name}`);
+            let template = `#!/usr/bin/env node
+            let program = require('commander');
+            let { main } = require('../dist/init/cli');
+            
+            program
+                .action(main)
+                .parse(process.argv);`;
+                
+
+            return transpile(exe, `bin/versioner-${name}.js`);
+/* 
+            // get the entry file name            
+            let ext = path.extname(entry);
+            let filename = path.basename(entry, ext);
+            
+            console.log(`Bundling ${filename}`);
+
+            let bundleDest = `./wwwroot/js/modules/${filename}.js`;
+            ensureDirectoriesExist(bundleDest);
+            return bundle(entry, bundleDest);//, dependencies); */
+        });
+                
+        //eventstream.merge(bundles).on('end', done);
+    });
+
+
+    return cb;
+}
+
+//gulp.task('cli', cliGenerator);
