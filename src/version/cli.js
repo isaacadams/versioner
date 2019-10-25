@@ -1,29 +1,31 @@
 import program from 'commander';
 
-export function define(){
+export function define() {
     program
-        .command('bump <part>')
-        .description('bump a part [patch, minor, or major] in the version')
-        .option('-u --update', 'update the bumped version')
-        .action((part, options) => {        
-            
-            version(part, options);
+        .command('get')
+        .description('Get the current version')
+        .option('-u --update', 'update the version')
+        .option('-b --bump <part>', 'bump a part of the version [patch, minor, or major]')
+        .action((options) => {
+            version(options);
         });
 }
 
 import { Versioner } from './../Versioner';
 
-function version(part, opts) {
+function version(opts) {
     let versioner = new Versioner("versioner.json", 'development');
 
-    let bump = {
-        build: () => versioner.build(),
-        patch: () => versioner.patch(),
-        minor: () => versioner.minor(),
-        major: () => versioner.major()
-    };
-
-    bump[part]();   
+    if(!!opts.bump) {
+        let bump = {
+            build: () => versioner.build(),
+            patch: () => versioner.patch(),
+            minor: () => versioner.minor(),
+            major: () => versioner.major()
+        };
+    
+        bump[opts.bump]();   
+    }
     
     if(opts.update){
         versioner.update();

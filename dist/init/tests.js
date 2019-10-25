@@ -14,8 +14,7 @@ var _require = require('./../../testing/testing.shared'),
 
 var _require2 = require('chai'),
     expect = _require2.expect,
-    assert = _require2.assert; //let { createVersionerJson } = require('./cli');
-
+    assert = _require2.assert;
 
 it('should say missing required argument <project>', function (done) {
   var p = versioner("init", []);
