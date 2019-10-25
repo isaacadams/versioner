@@ -10,3 +10,8 @@ let { main } = require('./../dist/cli');
 main();
 
 program.parse(process.argv);
+
+let NO_COMMAND_SPECIFIED = program.args.length === 0;
+if (NO_COMMAND_SPECIFIED) {
+  program.help();
+}
