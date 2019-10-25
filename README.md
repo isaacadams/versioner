@@ -9,7 +9,7 @@ a light-weight version management system built using node.js
 - on release
   - master will be tagged with new version
   - versioner will always looks to master tags for the current version
-- move 'version' command into 'get' and add --bump as option and --update as option
+- add 'long version' or 'with suffix' options to 'get'
 
 ## problems
 - none
