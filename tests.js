@@ -4,8 +4,6 @@ function importTest(name, path) {
     });
 }
 
-//var common = require("./common");
-
 describe("versioner", function () {
     beforeEach(function () {
        //console.log("running something before each test");

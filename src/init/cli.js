@@ -41,9 +41,9 @@ function createVersionerJson(name, options) {
 }
 
 
-import { Versioner } from './Versioner';
-import { VersionModel } from './Models';
-import { checkIfBranchExists, createBranch, isEmpty } from './custom-utils';
+import { Versioner } from './../Versioner';
+import { VersionModel } from './../Models';
+import { checkIfBranchExists, createBranch, isEmpty } from './../custom-utils';
 
 
 let verbose = false;

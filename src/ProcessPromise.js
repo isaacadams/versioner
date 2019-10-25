@@ -10,8 +10,7 @@ export function execute(executable, opts = [], verbose = false) {
     return new Promise(function (resolve, reject) {
         process.stdout.on('data', d => collectData(data, d));
         process.stderr.on('data', d => collectData(errors, d));
-
-        //process.addListener("error", reject);
+        process.addListener("error", reject);
 
         /*
             So, if you are only interested in the process termination 
@@ -47,7 +46,7 @@ export function execute(executable, opts = [], verbose = false) {
 
         function collectData(collection, d) {
             collection.push(d);
-            console.log('collecting some data');
+            //console.log('collecting some data');
         }
 
         function resolutionData(code){

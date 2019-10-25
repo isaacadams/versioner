@@ -17,15 +17,13 @@ function versioner(command, opts = []) {
     );
 }
 
-describe("init", function () {
-    it('should say missing required argument <project>', function(done) {
-        let p = versioner("init", []);
-        p.then((o) => {
-            setTimeout(function() {
-                //console.log(o);
-                assert.propertyVal(o, 'stderr', "error: missing required argument 'project'\n");
-                done();
-            });
+it('should say missing required argument <project>', function(done) {
+    let p = versioner("init", []);
+    p.then((o) => {
+        setTimeout(function() {
+            //console.log(o);
+            assert.propertyVal(o, 'stderr', "error: missing required argument 'project'\n");
+            done();
         });
     });
 });

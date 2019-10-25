@@ -19,8 +19,8 @@ function execute(executable) {
     });
     process.stderr.on('data', function (d) {
       return collectData(errors, d);
-    }); //process.addListener("error", reject);
-
+    });
+    process.addListener("error", reject);
     /*
         So, if you are only interested in the process termination 
         (e.g. because the process holds an exclusive resource), 
@@ -47,8 +47,7 @@ function execute(executable) {
     }
 
     function collectData(collection, d) {
-      collection.push(d);
-      console.log('collecting some data');
+      collection.push(d); //console.log('collecting some data');
     }
 
     function resolutionData(code) {

@@ -4,10 +4,17 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.define = define;
+exports.createReleaseBranches = createReleaseBranches;
 
 var _commander = _interopRequireDefault(require("commander"));
 
 var _fs = _interopRequireDefault(require("fs"));
+
+var _Versioner = require("./../Versioner");
+
+var _Models = require("./../Models");
+
+var _customUtils = require("./../custom-utils");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -43,4 +50,32 @@ function createVersionerJson(name, options) {
   var serialized = JSON.stringify(initVersioner, null, 2);
 
   _fs["default"].writeFileSync("versioner.json", serialized);
+}
+
+var verbose = false; // reading & writing JSON
+// https://stackabuse.com/reading-and-writing-json-files-with-node-js/
+
+function createReleaseBranches() {
+  var _ref = new _Versioner.Versioner("versioner.json", 'development'),
+      release = _ref.release,
+      data = _ref.data;
+
+  var project = data.project;
+  var patch = new _Models.VersionModel(release);
+  patch.patch++;
+  var minor = new _Models.VersionModel(release);
+  minor.minor++;
+  var major = new _Models.VersionModel(release);
+  major.major++;
+  var releases = [patch.ToString(), minor.ToString(), major.ToString()];
+  releases.forEach(function (v, i, e) {
+    var releaseBranch = (0, _customUtils.isEmpty)(project) ? "release/".concat(v) : "release/".concat(project, "/").concat(v);
+    (0, _customUtils.checkIfBranchExists)(releaseBranch, function () {
+      return console.log("".concat(releaseBranch, " already exists"));
+    }, function () {
+      (0, _customUtils.createBranch)(releaseBranch, function () {
+        return console.log("".concat(releaseBranch, " was created"));
+      });
+    });
+  });
 }

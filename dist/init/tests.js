@@ -28,15 +28,13 @@ function versioner(command) {
   return execute("node", [__root + "/bin/versioner.js", command].concat(_toConsumableArray(opts)));
 }
 
-describe("init", function () {
-  it('should say missing required argument <project>', function (done) {
-    var p = versioner("init", []);
-    p.then(function (o) {
-      setTimeout(function () {
-        //console.log(o);
-        assert.propertyVal(o, 'stderr', "error: missing required argument 'project'\n");
-        done();
-      });
+it('should say missing required argument <project>', function (done) {
+  var p = versioner("init", []);
+  p.then(function (o) {
+    setTimeout(function () {
+      //console.log(o);
+      assert.propertyVal(o, 'stderr', "error: missing required argument 'project'\n");
+      done();
     });
   });
 });
