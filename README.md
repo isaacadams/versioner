@@ -1,7 +1,11 @@
 ﻿# Versioner
 a light-weight version management system built using node.js
 
+## Usage Information
+
 Usage: versioner [options] [command]<br><br>Versioner, helping developers manage their versions<br><br>Options:<br>&ensp;&ensp;-V, --version&ensp;&ensp;output the version number<br>&ensp;&ensp;-h, --help&ensp;&ensp;output usage information<br><br>Commands:<br>&ensp;&ensp;init <project>&ensp;&ensp;initialize versioner for your project<br>&ensp;&ensp;get [options]&ensp;&ensp;Get the current version
+
+## to do
 
 - init requires project name and initial version
 - on init

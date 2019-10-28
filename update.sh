@@ -4,7 +4,7 @@
 
 # Get the output from your tool.
 # Paths are relative to the root of the repo
-IFS=
+IFS= #this will preserve the new lines in the usage output
 
 output=`node.exe bin/versioner.js` # gets the usage output
 output=${output//$'\n'/$'<br>'} # replaces newlines with something that doesn't break the following sed command
