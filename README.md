@@ -1,5 +1,5 @@
 ﻿# Versioner
-a light-weight version management system built using node.js
+a version management system built using node.js
 
 ## Usage Information
 
