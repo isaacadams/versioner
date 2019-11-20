@@ -7,7 +7,7 @@ let r = require,
 let projects = [ CreateProject('src/**/*.js', 'dist/') ];
 
 gulp.task('build.clean', function() {
-    return gulp.src('dist/', { read: false }) // much faster
+    return gulp.src('dist/', { read: false, allowEmpty: true }) // much faster
             //.pipe(ignore('node_modules/**'))
             .pipe(rimraf());
 });
