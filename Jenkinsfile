@@ -5,12 +5,15 @@ pipeline {
 	agent any
 
 	environment {
-        
+        MESSAGE = "Hello World"
     }	
     stages {
 		stage('Environment') {
             steps {  
-				sh "env | sort"
+				sh """
+                    env | sort
+                    echo ${MESSAGE}
+                """
             }
         }
 		stage('Clean') {
