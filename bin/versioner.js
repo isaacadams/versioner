@@ -11,7 +11,8 @@ main();
 
 program.parse(process.argv);
 
-let NO_COMMAND_SPECIFIED = program.args.length === 0;
+let NO_COMMAND_SPECIFIED = process.argv.length <= 2;
+
 if (NO_COMMAND_SPECIFIED) {
   program.help();
 }

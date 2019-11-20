@@ -2,9 +2,9 @@
 import colors from 'colors'; */
 
 import * as init from './init/cli';
-import * as version from './version/cli';
+import * as get from './get/cli';
 
 export function main() {
     init.define();
-    version.define();
+    get.define();
 }

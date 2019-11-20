@@ -1,13 +1,19 @@
 {
   "name": "@isaacadams/versioner",
-  "version": "0.2.0",
+  "version": "0.2.4",
   "description": "a light-weight version management system built using node.js",
   "main": "bin/versioner.js",
+  "files": [
+    "dist",
+    "bin"
+  ],
   "bin": {
     "versioner": "bin/versioner.js"
   },
   "scripts": {
-    "test": "gulp build && mocha testing/testing.main.js"
+    "prepublish": "npm run test",
+    "build": "gulp build",
+    "test": "npm run build && mocha testing/testing.main.js"
   },
   "devDependencies": {
     "gulp": "^4.0.0",
@@ -19,11 +25,12 @@
     "glob": "7.1.5",
     "mocha": "6.2.2",
     "chai": "4.2.0",
-    "chai-as-promised": "7.1.1"
+    "chai-as-promised": "7.1.1",
+    "gulp-rimraf": "1.0.0"
   },
   "dependencies": {
-    "colors": "^1.3.2",
-    "commander": "^3.0.2"
+    "colors": "^1.4.0",
+    "commander": "^4.0.1"
   },
   "keywords": [],
   "author": "Isaac Adams",
