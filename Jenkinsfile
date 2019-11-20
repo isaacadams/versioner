@@ -16,6 +16,20 @@ pipeline {
                 """
             }
         }
+        stage('Build') {
+            steps {  
+				sh """
+                    gulp build
+                """
+            }
+        }
+        stage('Test') {
+            steps {  
+				sh """
+                    npm run test
+                """
+            }
+        }
     }
     post {
         always {
