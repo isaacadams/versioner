@@ -27,12 +27,12 @@ pipeline {
             echo 'success'
         }
         unstable {
-            mail to: 'iadams@emoneyadvisor.com',
+            mail to: 'isaac.d.adams@gmail.com',
              subject: "Unstable Pipeline: ${currentBuild.fullDisplayName}",
              body: "Something is wrong with ${env.BUILD_URL}"
         }
         failure {
-            mail to: 'iadams@emoneyadvisor.com',
+            mail to: 'isaac.d.adams@gmail.com',
              subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
              body: "Something is wrong with ${env.BUILD_URL}"
         }
