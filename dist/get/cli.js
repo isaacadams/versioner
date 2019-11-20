@@ -12,20 +12,12 @@ var _Versioner = require("./../Versioner");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function define() {
-  /*  program
-       .command('bump <part>')
-       .description('bump a part [patch, minor, or major] in the version')
-       .option('-u --update', 'update the bumped version')
-       .action((part, options) => {        
-           
-           version(part, options);
-       }); */
   _commander["default"].command('get').description('Get the current version').option('-u --update', 'update the version').option('-b --bump <part>', 'bump a part of the version [patch, minor, or major]').action(function (options) {
-    version(options);
+    getVersion(options);
   });
 }
 
-function version(opts) {
+function getVersion(opts) {
   var versioner = new _Versioner.Versioner("versioner.json", 'development');
 
   if (!!opts.bump) {
@@ -51,5 +43,7 @@ function version(opts) {
   }
 
   var v = versioner.release.ToString();
-  console.log("".concat(v, "-").concat(versioner.env.config.suffix, ".").concat(versioner.env.config.build));
+  var longV = "".concat(v, "-").concat(versioner.env.config.suffix, ".").concat(versioner.env.config.build);
+  console.log(longV);
+  return longV;
 }
