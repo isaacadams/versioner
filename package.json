@@ -3,11 +3,14 @@
   "version": "0.2.0",
   "description": "a light-weight version management system built using node.js",
   "main": "bin/versioner.js",
+  "files": ["dist", "bin"],
   "bin": {
     "versioner": "bin/versioner.js"
   },
   "scripts": {
-    "test": "gulp build && mocha testing/testing.main.js"
+    "prepublish": "npm run test",
+    "build": "gulp build",
+    "test": "npm run build && mocha testing/testing.main.js"
   },
   "devDependencies": {
     "gulp": "^4.0.0",
