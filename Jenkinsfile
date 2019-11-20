@@ -16,11 +16,6 @@ pipeline {
                 """
             }
         }
-		stage('Clean') {
-			steps {
-				cleanWs()
-			}
-		}
     }
     post {
         always {
