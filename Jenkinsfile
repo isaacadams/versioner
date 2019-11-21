@@ -13,7 +13,6 @@ pipeline {
             steps {  
 				sh """
                     env | sort
-                    echo ${MESSAGE}
                 """
             }
         }
