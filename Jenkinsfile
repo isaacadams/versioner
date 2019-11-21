@@ -19,7 +19,9 @@ pipeline {
         stage('Setup') {
 			steps {
 				script {
-                    def gulp_image = docker.build 'isaacadams/gulp:latest'
+                    docker.withRegistry('https://hub.docker.com') {
+                        def gulp_image = docker.build 'isaacadams/gulp:latest'
+                    }
 				}
 			}
 		}
