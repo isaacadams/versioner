@@ -20,7 +20,8 @@ pipeline {
 			steps {
 				script {
                     docker.withRegistry('https://hub.docker.com') {
-                        def gulp_image = docker.build 'isaacadams/gulp:latest'
+                        def gulp_image = docker.image 'isaacadams/gulp:latest'
+                        gulp_image.pull()
                     }
 				}
 			}
