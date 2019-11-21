@@ -16,18 +16,29 @@ pipeline {
                 """
             }
         }
+        stage('Setup') {
+			steps {
+				script {
+                    def gulp_image = docker.build 'isaacadams/gulp:latest'
+				}
+			}
+		}
         stage('Build') {
             steps {  
-				sh """
-                    gulp build
-                """
+                script {
+                    gulp_image.inside {
+                        gulp build
+                    }
+                }
             }
         }
         stage('Test') {
             steps {  
-				sh """
-                    npm run test
-                """
+                script {
+                    gulp_image.inside {
+                        npm run test
+                    }
+                }
             }
         }
     }
