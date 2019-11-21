@@ -5,7 +5,8 @@ pipeline {
 	agent any
 
 	environment {
-        MESSAGE = "Hello World"
+        DOCKER_REGISTRY = "https://registry.hub.docker.com"
+        DOCKER_IMAGE = "isaacadams/gulp:latest"
     }	
     stages {
 		stage('Environment') {
@@ -19,8 +20,8 @@ pipeline {
         stage('Setup') {
 			steps {
 				script {
-                    docker.withRegistry('https://hub.docker.com') {
-                        def gulp_image = docker.image 'isaacadams/gulp:latest'
+                    docker.withRegistry("${DOCKER_REGISTRY}") {
+                        def gulp_image = docker.image "${DOCKER_IMAGE}"
                         gulp_image.pull()
                     }
 				}
