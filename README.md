@@ -1,7 +1,9 @@
-﻿# Versioner
+# Versioner
 a version management system built using node.js
 
 ## Usage Information
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fisaacadams%2Fversioner.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fisaacadams%2Fversioner?ref=badge_shield)
+
 
 Usage: versioner [options] [command]<br><br>Versioner, helping developers manage their versions<br><br>Options:<br>&ensp;&ensp;-V, --version&ensp;&ensp;output the version number<br>&ensp;&ensp;-h, --help&ensp;&ensp;output usage information<br><br>Commands:<br>&ensp;&ensp;init <project>&ensp;&ensp;initialize versioner for your project<br>&ensp;&ensp;get [options]&ensp;&ensp;Get the current version
 
@@ -36,3 +38,7 @@ Usage: versioner [options] [command]<br><br>Versioner, helping developers manage
   - each one will continually integrate into the next one up
   - how do I know that a package has been released?
   - each release branch gets created underneath release/$\{project-name\}/* when the support for mutli project repos is needed
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fisaacadams%2Fversioner.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fisaacadams%2Fversioner?ref=badge_large)
