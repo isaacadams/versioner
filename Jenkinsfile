@@ -2,7 +2,11 @@
 
 pipeline {
     
-	agent any
+	agent {
+	    docker {
+	        image 'isaacadams/gulp:latest'
+	    }
+	}
 
 	environment {
         DOCKER_REGISTRY = "https://registry.hub.docker.com"
@@ -13,35 +17,20 @@ pipeline {
             steps {  
 				sh """
                     env | sort
+                    ls
+                    cat package.json
                 """
+                sh "npm ci"
             }
         }
-        stage('Setup') {
-			steps {
-				script {
-                    docker.withRegistry("${DOCKER_REGISTRY}") {
-                        def gulp_image = docker.image "${DOCKER_IMAGE}"
-                        gulp_image.pull()
-                    }
-				}
-			}
-		}
         stage('Build') {
             steps {  
-                script {
-                    gulp_image.inside {
-                        gulp build
-                    }
-                }
+                sh "gulp build"
             }
         }
         stage('Test') {
             steps {  
-                script {
-                    gulp_image.inside {
-                        npm run test
-                    }
-                }
+                sh "npm run test"
             }
         }
     }
